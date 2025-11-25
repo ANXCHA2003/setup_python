@@ -1,12 +1,25 @@
-# Setup Python – My IP Checker Program
+# Name Manager (Tkinter)
 
-โปรแกรมเช็ก Public IP ด้วย Python  
-ใช้ request ไปที่ API: `https://api.ipify.org?format=json`
+แอป GUI สำหรับบันทึก/แสดง/ลบข้อมูลชื่อแบบง่าย ๆ เก็บข้อมูลในไฟล์ `data.txt`
+
+## การติดตั้ง
+
+```
+python3 -m venv .venv
+source .venv/bin/activate  # หรือ .venv\\Scripts\\activate บน Windows
+pip install -r requirements.txt
+```
 
 ## การใช้งาน
 
-```bash
-python main.py
+```
+python3 main.py
+```
 
----- My IP Checker Program ----
-My Public IP Address is: xxx.xxx.xxx.xxx
+### เมนู/ปุ่มบนหน้าหลัก
+- เพิ่มข้อมูล: เปิดหน้าต่างให้กรอกชื่อแล้วกดบันทึก
+- แสดงข้อมูล: เปิดหน้าต่างแสดงรายชื่อทั้งหมด
+- แก้ไข/ลบข้อมูล: เลือกรายชื่อแล้วกดลบ
+- ออกจากโปรแกรม: ปิดแอป
+
+> บน macOS เมนูจะอยู่บนแถบด้านบนของจอ แต่ปุ่มลัดอยู่ในหน้าต่างหลักให้กดได้ทันที
