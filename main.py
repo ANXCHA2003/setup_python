@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 
 DATA_FILE = "data.txt"
 
@@ -77,7 +77,34 @@ def manage_data(root: tk.Tk) -> None:
             file.writelines(data)
         messagebox.showinfo("สำเร็จ", "ลบข้อมูลเรียบร้อยแล้ว!")
 
-    tk.Button(window, text="ลบข้อมูลที่เลือก", command=delete_selected).pack(pady=10)
+    def edit_selected() -> None:
+        selected = listbox.curselection()
+        if not selected:
+            messagebox.showwarning("ข้อผิดพลาด", "กรุณาเลือกข้อมูลที่จะแก้ไข!")
+            return
+        index = selected[0]
+        current_value = data[index].strip()
+        new_value = simpledialog.askstring(
+            "แก้ไขข้อมูล", "ปรับชื่อเป็น:", initialvalue=current_value, parent=window
+        )
+        if new_value is None:
+            return  # ผู้ใช้กด Cancel
+        new_value = new_value.strip()
+        if not new_value:
+            messagebox.showwarning("ข้อผิดพลาด", "ค่าที่แก้ไขต้องไม่ว่างเปล่า!")
+            return
+
+        data[index] = new_value + "\n"
+        listbox.delete(index)
+        listbox.insert(index, new_value)
+        with open(DATA_FILE, "w", encoding="utf-8") as file:
+            file.writelines(data)
+        messagebox.showinfo("สำเร็จ", "แก้ไขข้อมูลเรียบร้อยแล้ว!")
+
+    btn_frame = tk.Frame(window, pady=10)
+    btn_frame.pack()
+    tk.Button(btn_frame, text="แก้ไขข้อมูลที่เลือก", width=20, command=edit_selected).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="ลบข้อมูลที่เลือก", width=20, command=delete_selected).pack(side=tk.LEFT, padx=5)
 
 
 def main() -> None:
